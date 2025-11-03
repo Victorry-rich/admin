@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 
 import provider from './admin/auth-provider.js';
 import options from './admin/options.js';
-import initializeDb from './db/index.js';
+import initializeDb, { db } from './db/index.js';
 
 dotenv.config({
   path: `${process.cwd()}/.env`,
@@ -41,10 +41,6 @@ const start = async () => {
       resave: true,
     },
   );
-
-  // Add custom API routes
-  app.use('/admin/api/deposits', router);
-  app.use('/admin/api/withdrawals', router);
 
   app.use(admin.options.rootPath, router);
 

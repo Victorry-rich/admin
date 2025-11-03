@@ -7,6 +7,8 @@ import { processAttributes } from './utils/helper.js';
 import { dashboardHandler } from './utils/dashboard-handler.js';
 import { componentLoader, Components } from './component-loader.js';
 
+const table = (tableName: string) => db.table(tableName);
+
 const options: AdminJSOptions = {
   componentLoader,
   rootPath: '/admin',
@@ -16,36 +18,8 @@ const options: AdminJSOptions = {
   },
 
   resources: [
-    // User related resources
     {
-      resource: db.table('users'),
-      options: {
-        listProperties: ['id', 'email', 'username', 'role', 'kycStatus', 'walletBalance', 'createdAt'],
-        filterProperties: ['email', 'username', 'role', 'kycStatus', 'emailVerified'],
-        properties: {
-          password: { isVisible: false },
-          externalWalletSeed: { isVisible: false },
-          createdAt: { isVisible: { list: true, show: true, edit: false } },
-          updatedAt: { isVisible: { list: false, show: true, edit: false } },
-          role: {
-            availableValues: [
-              { label: 'Super Admin', value: 'SUPERADMIN' },
-              { label: 'Admin', value: 'ADMIN' },
-              { label: 'User', value: 'USER' },
-            ],
-          },
-          kycStatus: {
-            availableValues: [
-              { label: 'Pending', value: 'pending' },
-              { label: 'Approved', value: 'approved' },
-              { label: 'Rejected', value: 'rejected' },
-            ],
-          },
-        },
-      },
-    },
-    {
-      resource: db.table('user_notification_settings'),
+      resource: table('user_notification_settings'),
       options: {
         listProperties: ['id', 'userId', 'emailNotifications', 'pushNotifications'],
       },
@@ -54,7 +28,7 @@ const options: AdminJSOptions = {
     // NFT & Collection resources
     // Collections with Cloudinary upload
     {
-      resource: db.table('collections'),
+      resource: table('collections'),
       options: {
         listProperties: [
           'id',
@@ -109,7 +83,7 @@ const options: AdminJSOptions = {
     },
 
     {
-      resource: db.table('nft_items'),
+      resource: table('nft_items'),
       options: {
         listProperties: ['id', 'name', 'collectionId', 'ownerId', 'isListed', 'listPrice', 'rarity', 'views'],
         properties: {
@@ -224,7 +198,7 @@ const options: AdminJSOptions = {
 
     // Auction resources
     {
-      resource: db.table('auctions'),
+      resource: table('auctions'),
       options: {
         listProperties: ['id', 'nftItemId', 'type', 'status', 'startingPrice', 'startTime', 'endTime'],
         properties: {
@@ -252,7 +226,7 @@ const options: AdminJSOptions = {
       },
     },
     {
-      resource: db.table('bids'),
+      resource: table('bids'),
       options: {
         listProperties: ['id', 'auctionId', 'bidderId', 'amount', 'createdAt'],
       },
@@ -260,7 +234,7 @@ const options: AdminJSOptions = {
 
     // Exhibition resources
     {
-      resource: db.table('exhibitions'),
+      resource: table('exhibitions'),
       options: {
         listProperties: ['id', 'title', 'status', 'startDate', 'endDate', 'featured', 'views'],
         properties: {
@@ -317,7 +291,7 @@ const options: AdminJSOptions = {
 
     // Financial resources
     {
-      resource: db.table('withdrawal_requests'),
+      resource: table('withdrawal_requests'),
       options: {
         listProperties: ['id', 'userId', 'status', 'destinationAddress', 'createdAt'],
         properties: {
@@ -334,7 +308,7 @@ const options: AdminJSOptions = {
       },
     },
     {
-      resource: db.table('deposit_requests'),
+      resource: table('deposit_requests'),
       options: {
         listProperties: ['id', 'userId', 'amount', 'status', 'createdAt'],
         properties: {
@@ -352,7 +326,7 @@ const options: AdminJSOptions = {
 
     // Platform wallets
     {
-      resource: db.table('platform_wallets'),
+      resource: table('platform_wallets'),
       options: {
         listProperties: ['id', 'address', 'index', 'status', 'assignedAt'],
         properties: {
@@ -370,25 +344,53 @@ const options: AdminJSOptions = {
 
     // Additional resources
     {
-      resource: db.table('escrow_transactions'),
+      resource: table('escrow_transactions'),
       options: {
         listProperties: ['id', 'nftItemId', 'buyerId', 'sellerId', 'amount', 'status', 'createdAt'],
       },
     },
     {
-      resource: db.table('whitelisted_addresses'),
+      resource: table('whitelisted_addresses'),
       options: {
         listProperties: ['id', 'userId', 'address', 'label', 'addedAt'],
       },
     },
     {
-      resource: db.table('purchase_sessions'),
+      resource: table('purchase_sessions'),
       options: {
         listProperties: ['id', 'userId', 'nftItemId', 'amount', 'status', 'expiresAt'],
       },
     },
+    // User related resources
+    // {
+    //   resource: table('users'),
+    //   options: {
+    //     listProperties: ['id', 'email', 'username', 'role', 'kycStatus', 'walletBalance', 'createdAt'],
+    //     filterProperties: ['email', 'username', 'role', 'kycStatus', 'emailVerified'],
+    //     properties: {
+    //       password: { isVisible: false },
+    //       externalWalletSeed: { isVisible: false },
+    //       createdAt: { isVisible: { list: true, show: true, edit: false } },
+    //       updatedAt: { isVisible: { list: false, show: true, edit: false } },
+    //       role: {
+    //         availableValues: [
+    //           { label: 'Super Admin', value: 'SUPERADMIN' },
+    //           { label: 'Admin', value: 'ADMIN' },
+    //           { label: 'User', value: 'USER' },
+    //         ],
+    //       },
+    //       kycStatus: {
+    //         availableValues: [
+    //           { label: 'Pending', value: 'pending' },
+    //           { label: 'Approved', value: 'approved' },
+    //           { label: 'Rejected', value: 'rejected' },
+    //         ],
+    //       },
+    //     },
+    //   },
+    // },
   ],
-  databases: [],
+  databases: [db],
   branding: {
     companyName: 'Vaultorx NFT Marketplace Admin',
     logo: false,
