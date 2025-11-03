@@ -362,33 +362,33 @@ const options: AdminJSOptions = {
       },
     },
     // User related resources
-    // {
-    //   resource: table('users'),
-    //   options: {
-    //     listProperties: ['id', 'email', 'username', 'role', 'kycStatus', 'walletBalance', 'createdAt'],
-    //     filterProperties: ['email', 'username', 'role', 'kycStatus', 'emailVerified'],
-    //     properties: {
-    //       password: { isVisible: false },
-    //       externalWalletSeed: { isVisible: false },
-    //       createdAt: { isVisible: { list: true, show: true, edit: false } },
-    //       updatedAt: { isVisible: { list: false, show: true, edit: false } },
-    //       role: {
-    //         availableValues: [
-    //           { label: 'Super Admin', value: 'SUPERADMIN' },
-    //           { label: 'Admin', value: 'ADMIN' },
-    //           { label: 'User', value: 'USER' },
-    //         ],
-    //       },
-    //       kycStatus: {
-    //         availableValues: [
-    //           { label: 'Pending', value: 'pending' },
-    //           { label: 'Approved', value: 'approved' },
-    //           { label: 'Rejected', value: 'rejected' },
-    //         ],
-    //       },
-    //     },
-    //   },
-    // },
+    {
+      resource: table('users'),
+      options: {
+        listProperties: ['id', 'email', 'username', 'role', 'kycStatus', 'walletBalance', 'createdAt'],
+        filterProperties: ['email', 'username', 'role', 'kycStatus', 'emailVerified'],
+        properties: {
+          password: { isVisible: false },
+          externalWalletSeed: { isVisible: false },
+          createdAt: { isVisible: { list: true, show: true, edit: false } },
+          updatedAt: { isVisible: { list: false, show: true, edit: false } },
+          role: {
+            availableValues: [
+              { label: 'Super Admin', value: 'SUPERADMIN' },
+              { label: 'Admin', value: 'ADMIN' },
+              { label: 'User', value: 'USER' },
+            ],
+          },
+          kycStatus: {
+            availableValues: [
+              { label: 'Pending', value: 'pending' },
+              { label: 'Approved', value: 'approved' },
+              { label: 'Rejected', value: 'rejected' },
+            ],
+          },
+        },
+      },
+    },
   ],
   databases: [db],
   branding: {
