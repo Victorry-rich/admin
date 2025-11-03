@@ -3,13 +3,15 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "yarn install && tsc",
+    "build": "yarn clean && tsc",
     "lint": "eslint \"src\"",
-    "start": "dotenv -c '.env' -- npx tsx watch src/app.ts",
+    "start": "dotenv -c '.env' -- tsx src/app.ts",
     "start:node": "dotenv -c '.env' -- node dist/app",
     "dev": "npm run build && dotenv -c '.env' -- node --watch dist/app",
     "dev:tsx": "dotenv -c '.env' -- npx tsx watch src/app.ts",
-    "dev:ts-node": "dotenv -c '.env' -- ts-node-esm --watch src app.ts"
+    "dev:ts-node": "dotenv -c '.env' -- ts-node-esm --watch src app.ts",
+    "clean": "rimraf dist",
+    "build:watch": "tsc -w"
   },
   "dependencies": {
     "@adminjs/express": "^6.1.0",
@@ -20,7 +22,10 @@
     "express": "^4.18.2",
     "express-formidable": "^1.2.0",
     "express-session": "^1.17.3",
-    "pg": "latest"
+    "pg": "latest",
+    "rimraf": "^6.1.0",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.17",
@@ -29,7 +34,7 @@
     "@types/react-dom": "^19.2.2",
     "@typescript-eslint/eslint-plugin": "^5.58.0",
     "@typescript-eslint/parser": "^5.58.0",
-    "dotenv-cli": "^7.2.1",
+    "dotenv-cli": "^11.0.0",
     "eslint": "^8.38.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.27.5",
